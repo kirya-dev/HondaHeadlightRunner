@@ -37,6 +37,10 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef *hcan)
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+    // Прерывание FIFO0 для обычного приема пакетов
+    HAL_NVIC_SetPriority(CAN1_RX0_IRQn, 1, 0);
+    HAL_NVIC_EnableIRQ(CAN1_RX0_IRQn);
   }
   else if (hcan->Instance == CAN2)
   {
